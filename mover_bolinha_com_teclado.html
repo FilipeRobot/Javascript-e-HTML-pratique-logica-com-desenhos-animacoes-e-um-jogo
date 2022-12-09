@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta content="dark" name="color-scheme" />
+		<title>Mover bolinha com teclado</title>
+		<link rel="stylesheet" href="./css/reset.css" />
+	</head>
+
+	<body>
+		<canvas width="600" height="400"></canvas>
+		<script>
+			var tela = document.querySelector("canvas");
+			var pincel = tela.getContext("2d");
+			pincel.fillStyle = "lightgray";
+			pincel.fillRect(0, 0, 600, 400);
+
+			var x = 20;
+			var y = 20;
+
+			// códigos do teclado
+			var teclaPrecionada = {
+				esquerda: [37, 65], // Esquerda, A
+				cima: [38, 87], // Cima, W
+				direita: [39, 68], // Direita, D
+				baixo: [40, 83], // Baixo, S
+			};
+
+			// taxa de incremento
+			var taxa = 10;
+
+			function desenhaCirculo(x, y, raio) {
+				pincel.fillStyle = "blue";
+				pincel.beginPath();
+				pincel.arc(x, y, raio, 0, 2 * Math.PI);
+				pincel.fill();
+			}
+
+			function limpaTela() {
+				pincel.clearRect(0, 0, 600, 400);
+				pincel.fillStyle = "lightgray";
+				pincel.fillRect(0, 0, 600, 400);
+			}
+
+			function atualizaTela() {
+				limpaTela();
+				desenhaCirculo(x, y, 10);
+			}
+
+			setInterval(atualizaTela, 20);
+
+			function leDoTeclado(evento) {
+				if (teclaPrecionada.cima.includes(evento.keyCode)) {
+					y -= taxa; // Mover para cima
+				} else if (teclaPrecionada.baixo.includes(evento.keyCode)) {
+					y += taxa; // Mover para baixo
+				} else if (teclaPrecionada.esquerda.includes(evento.keyCode)) {
+					x -= taxa; // Mover para esquerda
+				} else if (teclaPrecionada.direita.includes(evento.keyCode)) {
+					x += taxa; // mover para direita
+				} else {
+                    console.log({
+                        'tecla precionada': evento.key,
+                        'evento.keyCode': evento.keyCode,
+                        'evento': evento
+                    }); // Descobrir tecla o usuário pressionou caso não esteja na lista de teclas programadas
+                }
+			}
+
+			document.onkeydown = leDoTeclado;
+		</script>
+	</body>
+</html>

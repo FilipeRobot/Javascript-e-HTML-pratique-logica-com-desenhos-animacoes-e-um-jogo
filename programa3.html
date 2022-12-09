@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="dark" name="color-scheme">
+    <title>Programa 3</title>
+    <link rel="stylesheet" href="./css/reset.css">
+</head>
+
+<body>
+    <canvas width="600" height="400"></canvas>
+    <p><span>Selecione a cor: </span><input type="color" name="paleta" id="paleta"></p>
+    <script>
+        function numeroAleatorio(limiteNumeroAleatorio) {
+            return Math.round(Math.random() * limiteNumeroAleatorio);
+        }
+
+        function corAleatoria() {
+            var listaCor = ['blue', 'green', 'red', 'yellow', 'orange', 'black', 'white', 'pink']
+            return listaCor[numeroAleatorio(listaCor.length)]
+        }
+
+        function backgroundCanvas(cor) {
+            pincel.fillStyle = cor;
+            pincel.fillRect(0, 0, 600, 400);
+        }
+
+        function desenhaBolinha(posicaoX, posicaoY, raio) {
+            pincel.fillStyle = paleta.value //cores[indiceCorAtual]; //'blue'; //corAleatoria();
+            pincel.beginPath();
+            pincel.arc(posicaoX, posicaoY, raio, 0, 2 * Math.PI);
+            pincel.fill();
+        }
+
+        var paleta = document.querySelector("input");
+        var tela = document.querySelector('canvas');
+        var pincel = tela.getContext('2d');
+
+        backgroundCanvas('grey');
+
+        var cores = ['blue', 'red', 'green'];
+        var indiceCorAtual = 0;
+        function mudaCor() {
+            indiceCorAtual++;
+            if (indiceCorAtual >= cores.length) {
+                indiceCorAtual = 0; // volta para a primeira cor, azul
+            }
+            return false;
+        }
+
+        tela.oncontextmenu = mudaCor;
+
+        var raio = 10;
+        var desenha = false;
+
+        // function desenhaCirculo(evento) {
+        //     if (desenha) {
+        //         var x = evento.pageX - tela.offsetLeft;
+        //         var y = evento.pageY - tela.offsetTop;
+        //         //var raio = 10;
+
+        //         if (evento.shiftKey && raio < 40) {
+        //             //desenhaBolinha(x, y, raio + 20);
+        //             raio += 10;
+        //         }
+
+        //         if (evento.ctrlKey && raio > 10) {
+        //             raio -= 5;
+        //         }
+
+        //         desenhaBolinha(x, y, raio);
+        //     }
+
+        //     console.log(x + ', ' + y);
+        // }
+
+        // tela.onclick = desenhaCirculo;
+
+        tela.onmousemove = (evento) => {
+            if (desenha) {
+                var x = evento.pageX - tela.offsetLeft;
+                var y = evento.pageY - tela.offsetTop;
+                //var raio = 10;
+
+                if (evento.shiftKey && raio < 40) {
+                    //desenhaBolinha(x, y, raio + 20);
+                    raio += 10;
+                }
+
+                if (evento.ctrlKey && raio > 10) {
+                    raio -= 5;
+                }
+
+                desenhaBolinha(x, y, raio);
+            }
+
+            //console.log(x + ', ' + y);
+        }
+
+        tela.onmousedown = () => {
+            desenha = true;
+        }
+        tela.onmouseup = () => {
+            desenha = false;
+        }
+    </script>
+</body>
+
+</html>

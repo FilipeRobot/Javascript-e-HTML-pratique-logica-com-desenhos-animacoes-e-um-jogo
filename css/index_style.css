@@ -1,0 +1,21 @@
+main section.conteudo {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+main section div.apresentacao{
+    text-align: center;
+}
+
+main section.conteudo div.card {
+    width: 22rem;
+}
+
+
+footer.rodape {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

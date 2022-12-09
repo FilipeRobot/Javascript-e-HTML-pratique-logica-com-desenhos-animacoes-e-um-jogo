@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="dark" name="color-scheme" />
+    <title>Troca bandeira</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+</head>
+
+<body>
+    <canvas width="600" height="400"></canvas>
+    <script>
+        function desenhaBandeiraBrasil() {
+            var tela = document.querySelector('canvas');
+            var pincel = tela.getContext('2d');
+
+            pincel.fillStyle = "green";
+            pincel.fillRect(0, 0, 600, 400);
+
+            pincel.fillStyle = "yellow";
+            pincel.beginPath();
+            pincel.moveTo(300, 50);
+            pincel.lineTo(50, 200);
+            pincel.lineTo(550, 200);
+            pincel.fill();
+
+            pincel.beginPath();
+            pincel.moveTo(50, 200);
+            pincel.lineTo(300, 350);
+            pincel.lineTo(550, 200);
+            pincel.fill();
+
+            pincel.fillStyle = "darkblue";
+            pincel.beginPath();
+
+            pincel.arc(300, 200, 100, 0, 2 * 3.14);
+            pincel.fill();
+        }
+
+        desenhaBandeiraBrasil();
+
+        function desenhaBandeiraAlemanha() {
+            var tela = document.querySelector('canvas');
+            var pincel = tela.getContext('2d');
+
+            pincel.fillStyle = 'black';
+            pincel.fillRect(0, 0, 600, 133);
+
+            pincel.fillStyle = 'red';
+            pincel.fillRect(0, 133, 600, 133);
+
+            pincel.fillStyle = 'yellow';
+            pincel.fillRect(0, 266, 600, 133);
+        }
+
+        var bandeira = "Brasil"; // O professor usou "var mostraBrasil = true;"
+        function trocaBandeira() {
+            if (bandeira == "Brasil") { // Se usar a variável como a do prof basta chamar ela no if, if(mostraBrasil){etc....}
+                desenhaBandeiraBrasil();
+                bandeira = "Alemanha"; // mudar "mostraBrasil" para false
+            } else if (bandeira == "Alemanha") { // condição do if pode ser descartada em qualquer cenário
+                desenhaBandeiraAlemanha();
+                bandeira = "Brasil"; // mudar "mostraBrasil" para true
+            }
+
+            /***
+             * Ao usar a variável "mostraBrasil" para inverter seu valor
+             * ao invés de fazer isso no if/else, isso pode ser feito do lado de fora
+             * da seguinte forma: "mostraBrasil = !mostraBrasil;" dessa forma
+             * cada vez que a função for chamada pelo "setInterval" ela irá atribuir
+             * o valor inverso para a variável "mostraBrasil"
+             * ***/
+        }
+
+        setInterval(trocaBandeira, 3000);
+        /***
+         * Mudanças na função "trocaBrandeira" para seguir o que o professor fez
+         * não foi implementada por uma questão de didática própria, pois quando
+         * eu fiz a logica funcionando atualmente eu fiz sozinho e funcionou dessa
+         * forma, então para expressar as outras possibilidades de resolução desse
+         * problema, as mudanças possíveis para o código foram simplesmente explicadas
+         * e não implementadas.
+         * 
+         * OBS: As mudanças seguindo o que foi apresentado pelo professor causa um código
+         * menor e mais limpo e elegante dependendo do ponto de vista
+         * ***/
+    </script>
+</body>
+
+</html>

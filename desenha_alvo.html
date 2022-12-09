@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="dark" name="color-scheme">
+    <title>Desenha Alvo</title>
+    <link rel="stylesheet" href="./css/reset.css">
+</head>
+
+<body>
+    <canvas width="600" height="400"></canvas>
+    <div style="margin: 10px; padding: 0px 10px; border: 1px solid;">
+        <h2>Selecione a cor do alvo</h4>
+        <label for="cor1">Selecione a cor principal: </label>
+        <input type="color" name="cor1" id="cor1" value="#ff0000">
+        <br>
+        <label for="cor2">Selecione a cor segundaria: </label>
+        <input type="color" name="cor2" id="cor2" value="#ffffff">
+        <br>
+        <button style="margin-left: 250px; margin-bottom: 10px;" name="definirCor" id="definirCor">Definir Cor</button>
+    </div>
+    
+    <script>
+        //Retorna um numero aleatória
+        function numeroAleatorio(limiteNumeroAleatorio) {
+            return Math.round(Math.random() * limiteNumeroAleatorio);
+        }
+
+        //Retorna uma cor aleatória da lista interna
+        function corAleatoria() {
+            var listaCor = [
+                'blue', 
+                'green', 
+                'red', 
+                'yellow', 
+                'orange', 
+                'black', 
+                'white', 
+                'pink'
+            ]
+            return listaCor[numeroAleatorio(listaCor.length)]
+        }
+
+        //Define a cor de fundo do canvas de acordo com o que foi passado como parâmetro
+        function backgroundCanvas(cor) {
+            pincel.fillStyle = cor;
+            pincel.fillRect(0, 0, 600, 400);
+        }
+
+        var cor1 = document.querySelector("#cor1");
+        var cor2 = document.querySelector("#cor2");
+        var button = document.querySelector("#definirCor")
+        var tela = document.querySelector('canvas');
+        var pincel = tela.getContext('2d');
+
+        backgroundCanvas('lightgray');
+
+        const circulo = {
+            // Objeto JSON com as informações do circulo
+            "posicaoX": 300, // numeroAleatorio(600) Para um alvo que aparece em posição 
+            "posicaoY": 200, // numeroAleatorio(400) aleatória da tela
+            "raio": 10, // tamanho do circulo
+            "anguloInicial": 0,
+            "doisVezesPI": 2 * Math.PI,
+            "cor": {
+                "vermelho": 'red',
+                "branco": 'white',
+                "cinzaClaro": "lightgray"
+            }
+        }
+        // console.log(circulo)
+        //var raio = 10; // tamanho do circulo
+        var desenha = true;
+
+        function desenhaCirculo(x, y, raio, cor) {
+            pincel.fillStyle = cor;
+            pincel.beginPath();
+            pincel.arc(
+                x, 
+                y, 
+                raio, 
+                circulo.anguloInicial, 
+                circulo.doisVezesPI
+            );
+            pincel.fill();
+        }
+
+        function desenhaAlvo(evento, corPrimaria, corSegundaria) {
+            if (evento == undefined) {
+                desenhaCirculo(
+                    circulo.posicaoX, 
+                    circulo.posicaoY, 
+                    circulo.raio + 20, 
+                    corPrimaria
+                ); // maior círculo
+                desenhaCirculo(
+                    circulo.posicaoX, 
+                    circulo.posicaoY, 
+                    circulo.raio + 10, 
+                    corSegundaria
+                ); //parte branca do meio
+                desenhaCirculo(
+                    circulo.posicaoX, 
+                    circulo.posicaoY, 
+                    circulo.raio, 
+                    corPrimaria
+                ); // menor circulo
+            }
+            else {
+                desenhaCirculo(
+                    circulo.posicaoX, 
+                    circulo.posicaoY, 
+                    circulo.raio + 20, 
+                    cor1.value
+                ); // maior círculo
+                desenhaCirculo(
+                    circulo.posicaoX, 
+                    circulo.posicaoY, 
+                    circulo.raio + 10, 
+                    cor2.value
+                ); //parte branca do meio
+                desenhaCirculo(
+                    circulo.posicaoX, 
+                    circulo.posicaoY, 
+                    circulo.raio, 
+                    cor1.value
+                ); // menor circulo
+            }
+            
+        }
+
+        //desenhaAlvo(cor1.value, cor2.value);
+
+        desenhaAlvo(circulo.cor.vermelho, circulo.cor.branco);
+
+        button.onclick = desenhaAlvo;
+
+        function dispara(evento) {
+            var x = evento.pageX - tela.offsetLeft;
+            var y = evento.pageY - tela.offsetTop;
+
+            if ((x >= circulo.posicaoX - circulo.raio) && 
+                (x <= circulo.posicaoX + circulo.raio) &&
+                (y >= circulo.posicaoY - circulo.raio) &&
+                (y <= circulo.posicaoY + circulo.raio)) {
+                console.log(x + ", " + y)
+                alert('Acertou no centro do alvo');
+            }
+        }
+
+        tela.onclick = dispara;
+    </script>
+</body>
+
+</html>

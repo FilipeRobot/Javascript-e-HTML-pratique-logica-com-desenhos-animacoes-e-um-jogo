@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="dark" name="color-scheme">
+    <title>Programa 2</title>
+    <link rel="stylesheet" href="./css/reset.css">
+</head>
+<body>
+    <canvas width="600" height="400"></canvas>
+    <script>
+        var tela = document.querySelector('canvas');
+        var pincel = tela.getContext('2d');
+
+        function backgroundCanvas(cor) {
+            pincel.fillStyle = cor;
+            pincel.fillRect(0, 0, 600, 400);
+        }
+
+        function desenhaQuadrado(posicaoX, posicaoY, tamanhoX, tamanhoY, cor) {
+            pincel.fillStyle = cor;
+            pincel.fillRect(posicaoX, posicaoY, tamanhoX, tamanhoY);
+            pincel.fillStroke = 'black';
+            pincel.strokeRect(posicaoX, posicaoY, tamanhoX, tamanhoY);
+        }
+
+        /*
+        var posicaoX = 0;
+        while (posicaoX < 600) {
+            //break;
+            desenhaQuadrado(posicaoX, 0, 50, 50, 'green');
+            posicaoX += 50;
+        }
+        */
+
+        backgroundCanvas('grey');
+
+        for (var posicaoX = 0; posicaoX < 600; posicaoX += 50) {
+            desenhaQuadrado(posicaoX, 0, 50, 50, 'green');
+        }
+
+        
+    </script>
+</body>
+</html>
