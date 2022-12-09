@@ -5,7 +5,7 @@ function criarLinkParaCodigoGithub() {
 		var link =
 			config.github +
 			config.repositorio +
-			"/blob/main/" +
+			"/blob/master/" +
 			element.url;
 		listaDeLinks.push(link);
 	}
@@ -22,7 +22,7 @@ function adicionaLinks(links) {
 
 const config = {
 	nome: "Filipe Lemos (FilipeRobot)",
-	repositorio: "Javascript-e-HTML-pratique-l-gica-com-desenhos-anima-es-e-um-jogo",
+	repositorio: "Javascript-e-HTML-pratique-logica-com-desenhos-animacoes-e-um-jogo",
 	github: "https://github.com/FilipeRobot/",
 	linkedin: "https://www.linkedin.com/in/filipe-lemos-programador/",
 	projetos: [
