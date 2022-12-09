@@ -5,7 +5,7 @@ function preencheMenu() {
 	);
 	const menuItemLinkedin = document.querySelector("#menu-item-linkedin");
 	menuItemGithub.href = config.github;
-	menuItemRepositorio.href = config.repositorio;
+	menuItemRepositorio.href = config.github + config.repositorio;
 	menuItemLinkedin.href = config.linkedin;
 }
 
